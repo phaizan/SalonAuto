@@ -9,7 +9,7 @@ namespace Storage.Models
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid IsnNode { get; set; }
-        [Required, MaxLength(20)]
+        [MaxLength(20)]
         public string Code { get; set; }
         [Required, MaxLength(255)]
         public string Name { get; set; }

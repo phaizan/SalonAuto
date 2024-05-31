@@ -21,7 +21,7 @@ builder.Services.AddWebServices();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo() { Title = "SalonAuto", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo() { Title = "AutoSalon", Version = "v1" });
     c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 
     foreach (FileInfo file in new DirectoryInfo(AppContext.BaseDirectory).GetFiles(
@@ -35,21 +35,24 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-app.UseHttpsRedirection();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    app.UseDeveloperExceptionPage();
 
+    //app.UseHsts();
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "SalonAuto");
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "AutoSalon");
+        options.RoutePrefix = string.Empty;
         options.EnableDeepLinking();
     });
 }
+
+app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
