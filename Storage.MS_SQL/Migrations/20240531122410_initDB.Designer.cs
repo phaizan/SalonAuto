@@ -12,7 +12,7 @@ using Storage.Database;
 namespace Storage.MS_SQL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240516193209_initDB")]
+    [Migration("20240531122410_initDB")]
     partial class initDB
     {
         /// <inheritdoc />
