@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Logic.Repositories
 {
-    public class CenterRepository : ICenterRepository
+    /*public class CenterRepository : ICenterRepository
     {
 
         public Center Create(DataContext dataContext, Center center)
@@ -45,5 +45,5 @@ namespace Logic.Repositories
 
             return centerDb;
         }
-    }
+    }*/
 }

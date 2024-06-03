@@ -8,13 +8,13 @@ namespace Logic.Extensions
 {
     public static class ServiceCollectionExtentions
     {
-        public static void AddLogicServices(this IServiceCollection services)
+        /*public static void AddLogicServices(this IServiceCollection services)
         {
             services.AddSingleton<ICenterService, CenterService>();
             services.AddSingleton<IUserService, UserService>();
 
             services.AddSingleton<ICenterRepository, CenterRepository>();
             services.AddSingleton<IUserRepository, UserRepository>();
-        }
+        }*/
     }
 }

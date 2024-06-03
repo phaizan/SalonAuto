@@ -1,67 +1,98 @@
-﻿using Logic.DtoModels.Filters;
-using Microsoft.AspNetCore.Mvc;
-using SalonAuto.Features.DtoModels.Center;
-using SalonAuto.Features.Interfaces.Managers;
+﻿using Microsoft.AspNetCore.Mvc;
+using Storage.Database;
+using Storage.Models;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutoSalon.Controllers
 {
-    [Route("Manage")]
-    public class ManageController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CarsController : ControllerBase
     {
-        private readonly ICenterManager _centerManager;
+        private readonly DataContext _context;
 
-        public ManageController(ICenterManager centerManager)
+        public CarsController(DataContext context)
         {
-            _centerManager = centerManager;
+            _context = context;
         }
 
-        [HttpGet(nameof(Center), Name = nameof(Center))]
-        public async Task<ActionResult> Center()
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Car>>> GetCars()
         {
-            var center = _centerManager.GetListCenters(new CenterFilterDto()).FirstOrDefault();
-            return View(center);
+            return await _context.Cars.ToListAsync();
         }
 
-        [HttpPost(nameof(CreateCenter), Name = nameof(CreateCenter))]
-        public async Task<ActionResult> CreateCenter([FromBody] EditCenter center)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Car>> GetCar(Guid id)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-             
-            _centerManager.Create(center);
-            return Ok();
-        }
-        
-        [HttpPost(nameof(CreateCenterView), Name = nameof(CreateCenterView))]
-        public async Task<ActionResult> CreateCenterView([FromBody] EditCenter center)
-        {
-            if (!ModelState.IsValid)
-                return View(nameof(Center), center);
-             
-            _centerManager.Create(center);
-            return View();
+            var car = await _context.Cars.FindAsync(id);
+
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            return car;
         }
 
-        [HttpPut(nameof(UpdateCenter), Name = nameof(UpdateCenter))]
-        public async Task<ActionResult> UpdateCenter([FromBody] EditCenter center)
+        [HttpPost]
+        public async Task<ActionResult<Car>> PostCar(Car car)
         {
-            _centerManager.Update(center);
-            return Ok();
+            _context.Cars.Add(car);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetCar", new { id = car.CarId }, car);
         }
 
-        
-        [HttpDelete(nameof(UpdateCenter), Name = nameof(UpdateCenter))]
-        public async Task<ActionResult> DeleteCenter([FromBody] Guid isnNode)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutCar(Guid id, Car car)
         {
-            _centerManager.Delete(isnNode);
-            return Ok();
+            if (id != car.CarId)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(car).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CarExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
 
-        [HttpGet(nameof(GetListCenter), Name = nameof(GetListCenter))]
-        public async Task<ActionResult> GetListCenter()
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCar(Guid id)
         {
-            var centers = _centerManager.GetListCenters(new CenterFilterDto());
-            return Ok(centers);
+            var car = await _context.Cars.FindAsync(id);
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            _context.Cars.Remove(car);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool CarExists(Guid id)
+        {
+            return _context.Cars.Any(e => e.CarId == id);
         }
     }
 }

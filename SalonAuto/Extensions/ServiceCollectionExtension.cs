@@ -6,11 +6,11 @@ namespace SalonAuto.Extensions
 {
     public static class ServiceCollectionExtension
     {
-        public static void AddWebServices(this IServiceCollection services)
+        /*public static void AddWebServices(this IServiceCollection services)
         {
             services.AddLogicServices();
 
             services.AddTransient<ICenterManager, CenterManager>();
-        }
+        }*/
     }
 }

@@ -11,7 +11,7 @@ using Storage.Models;
 
 namespace Logic.Services
 {
-    public class CenterService : ICenterService
+    /*public class CenterService : ICenterService
     {
         public IQueryable<Center> GetCenterQueryble(DataContext dataContext, CenterFilterDto filterm, bool asNoTracking)
         {
@@ -23,5 +23,5 @@ namespace Logic.Services
 
             return query;
         }
-    }
+    }*/
 }
