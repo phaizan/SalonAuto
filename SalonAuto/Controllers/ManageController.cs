@@ -50,7 +50,7 @@ namespace AutoSalon.Controllers
         }
 
         
-        [HttpPut(nameof(UpdateCenter), Name = nameof(UpdateCenter))]
+        [HttpDelete(nameof(UpdateCenter), Name = nameof(UpdateCenter))]
         public async Task<ActionResult> DeleteCenter([FromBody] Guid isnNode)
         {
             _centerManager.Delete(isnNode);

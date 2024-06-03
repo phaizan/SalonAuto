@@ -1,23 +1,32 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using SalonAuto.Extensions;
 using Storage.Database;
+using Microsoft.Extensions.Logging;
+using SalonAuto.Extensions;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var logger = LoggerFactory.Create(logging => logging.AddConsole()).CreateLogger("Program");
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+logger.LogInformation($"Connection string loaded: {connectionString}");
+
+if (string.IsNullOrEmpty(connectionString))
+{
+    throw new InvalidOperationException("The connection string 'DefaultConnection' was not found.");
+}
+
 builder.Services.AddDbContext<DataContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), o =>
+    options.UseSqlServer(connectionString, o =>
     {
         o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
     }));
 
-// Add services to the container.
+// Добавление других сервисов
 builder.Services.AddControllersWithViews();
-
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddWebServices();
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -35,14 +44,10 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-
-// Configure the HTTP request pipeline.
+// Конфигурация HTTP-запросов
 if (app.Environment.IsDevelopment())
 {
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseDeveloperExceptionPage();
-
-    //app.UseHsts();
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
@@ -53,15 +58,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
