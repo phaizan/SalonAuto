@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Storage.Models
 {
-    [Index(nameof(IsnCenter))]
+    /*[Index(nameof(IsnCenter))]
     public class User
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -19,5 +19,5 @@ namespace Storage.Models
         public string LastName { get; set; }
 
         public virtual Center Center { get; set; }
-    }
+    }*/
 }

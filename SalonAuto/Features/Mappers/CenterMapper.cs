@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿/*using AutoMapper;
 using SalonAuto.Features.DtoModels.Center;
 using Storage.Models;
 
@@ -14,3 +14,4 @@ namespace SalonAuto.Features.Mappers
         }
     }
 }
+*/

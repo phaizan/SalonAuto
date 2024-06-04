@@ -6,7 +6,7 @@ namespace Storage.MS_SQL
 {
     public class SqlServerContextFactory : IDesignTimeDbContextFactory<DataContext>
     {
-        private const string DbContextString = "Server=localhost,1433;Database=AutoSalon;User ID=sa;Password=pR0$touzhedaitemnepultOtyanderki;MultipleActiveResultSets=true;TrustServerCertificate=True";
+        private const string DbContextString = "Server=localhost,1433;Database=AAutoSalon;User ID=sa;Password=pR0$touzhedaitemnepultOtyanderki;MultipleActiveResultSets=true;TrustServerCertificate=True";
 
         public DataContext CreateDbContext(string[] args)
         {

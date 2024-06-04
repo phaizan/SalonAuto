@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Logic.Interfaces.Services
 {
-    public interface ICenterService
+    /*public interface ICenterService
     {
         IQueryable<Center> GetCenterQueryble(DataContext dataContext, CenterFilterDto filter, bool asNoTracking);
 
-    }
+    }*/
 }

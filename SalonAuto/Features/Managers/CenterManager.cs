@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿/*using AutoMapper;
 using Logic.DtoModels.Filters;
 using Logic.Interfaces.Repositories;
 using Logic.Interfaces.Services;
@@ -77,4 +77,4 @@ namespace SalonAuto.Features.Managers
             return center;
         }
     }
-}
+}*/

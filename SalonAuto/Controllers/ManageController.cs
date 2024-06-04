@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AutoSalon.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CarsController : ControllerBase
+    /*[Route("api/[controller]")]
+    [ApiController]*/
+    /*public class CarsController : ControllerBase
     {
         private readonly DataContext _context;
 
@@ -94,5 +94,5 @@ namespace AutoSalon.Controllers
         {
             return _context.Cars.Any(e => e.CarId == id);
         }
-    }
+    }*/
 }

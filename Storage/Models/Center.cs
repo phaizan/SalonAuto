@@ -4,8 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Storage.Models
 {
-    [Index(nameof(Name))]
-    public class Center
+    //[Index(nameof(Name))]
+    /*public class Center
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid IsnNode { get; set; }
@@ -15,5 +15,5 @@ namespace Storage.Models
         public string Name { get; set; }
         [InverseProperty(nameof(User.Center))]
         public virtual ICollection<User> Users { get; set; }
-    }
+    }*/
 }
